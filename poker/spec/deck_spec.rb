@@ -12,11 +12,11 @@ describe Deck do
     end
 
     it "returns all cards without duplicates" do
-      num_unique_cards = all_cards
+      num_unique_cards = self.all_cards
         .map { |card| [card.suit, card.value] }
         .uniq
         .count
-      expect(unique_cards).to eq(52)
+      expect(num_unique_cards).to eq(52)
     end
   end
 
@@ -31,12 +31,12 @@ describe Deck do
   describe "#initialize" do
     it "by default fills itself with 52 cards" do
       deck = Deck.new
-      expect(deck.count).to eq(52)
+      expect(deck.card_count).to eq(52)
     end
 
     it "can be initialized with an array of cards" do
       deck = Deck.new(cards)
-      expect(deck.count).to eq(3)
+      expect(deck.card_count).to eq(3)
     end
   end
 
@@ -56,7 +56,7 @@ describe Deck do
 
     it "removes cards from deck on take" do
       deck.take(2)
-      expect(deck.count).to eq(1)
+      expect(deck.card_count).to eq(1)
     end
 
     it "doesn't allow you to take more cards than are in the deck" do
@@ -66,7 +66,7 @@ describe Deck do
     end
   end
 
-  decribe "#return" do
+  describe "#return" do
     let(:more_cards) do
       [Card.new(:hearts, :four),
        Card.new(:hearts, :five),
@@ -75,7 +75,7 @@ describe Deck do
 
     it "returns cards to the deck" do
       deck.return(more_cards)
-      expect(deck.count).to eq(6)
+      expect(deck.card_count).to eq(6)
     end
 
     it "does not destroy the passed array" do
@@ -88,9 +88,9 @@ describe Deck do
       deck.return(more_cards)
       deck.take(3)
 
-      expect(deck.take(1)).to eq(more_cards[0])
-      expect(deck.take(1)).to eq(more_cards[1])
-      expect(deck.take(1)).to eq(more_cards[2])  
+      expect(deck.take(1)).to eq(more_cards[0..0])
+      expect(deck.take(1)).to eq(more_cards[1..1])
+      expect(deck.take(1)).to eq(more_cards[2..2])
     end
 
   end
